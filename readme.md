@@ -59,3 +59,57 @@ public class Passport {
 ```
 
 > *mappedBy* should always be in non owning side of the relationship. As we discussed earlier Address is being saved as part of Student. So, the student is on the owning side of the relationship that right away indicates **mappedBy** should be in the passport entity and on the student property.
+
+
+## one-many and many-one mappings
+
+> Let's consider Review and Course entities to demonstrate one-many and many-one mappings.
+
+``` java
+public class Review {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  private String rating;
+  private String description;
+
+  @ManyToOne(cascade = CascadeType.ALL)
+  private Course course;
+}
+```
+``` java
+public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+
+    @OneToMany(mappedBy = "course", cascade= CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+}
+```
+
+``` java
+@Test
+  public void manyToOneMappingBetweenReviewAndCourse() {
+    Course c1 = Course.builder().name("Spring Boot").build();
+    Course c2 = Course.builder().name("Microservices").build();
+    Course c3 = Course.builder().name("RestAPI").build();
+    Course c4 = Course.builder().name("Docker").build();
+    Course c5 = Course.builder().name("K8s").build();
+
+    Review r1 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r2 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r3 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r4 = Review.builder().rating("4").description("Must learn").course(c3).build();
+    Review r5 = Review.builder().rating("4").description("Must learn").course(c3).build();
+
+    reviewRepository.saveAll(Arrays.asList(r1, r2, r3, r4, r5));
+    courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
+  }
+```
+
+> Look at the above provided entity classes and Test to save the data, below screenshots show how  the data looks like in the tables.
+![Alt text](image.png) --> Course table
+![Alt text](image-1.png) --> Review table
+

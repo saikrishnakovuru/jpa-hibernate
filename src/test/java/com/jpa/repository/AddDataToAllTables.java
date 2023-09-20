@@ -24,21 +24,21 @@ public class AddDataToAllTables {
   private ReviewRepository reviewRepository;
 
   @Test
-  public void addDataToTables() {
+  public void manyToOneMappingBetweenReviewAndCourse() {
     Course c1 = Course.builder().name("Spring Boot").build();
     Course c2 = Course.builder().name("Microservices").build();
     Course c3 = Course.builder().name("RestAPI").build();
     Course c4 = Course.builder().name("Docker").build();
     Course c5 = Course.builder().name("K8s").build();
 
-    Review r1 = Review.builder().rating("5").description("Great course").build();
-    Review r2 = Review.builder().rating("4").description("Good content").build();
-    Review r3 = Review.builder().rating("4").description("Interractive course").build();
-    Review r4 = Review.builder().rating("4").description("Must learn").build();
-    Review r5 = Review.builder().rating("5").description("Peculear content").build();
+    Review r1 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r2 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r3 = Review.builder().rating("5").description("Great course").course(c1).build();
+    Review r4 = Review.builder().rating("4").description("Must learn").course(c3).build();
+    Review r5 = Review.builder().rating("4").description("Must learn").course(c3).build();
 
-    courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
     reviewRepository.saveAll(Arrays.asList(r1, r2, r3, r4, r5));
+    courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
   }
 
   @Test
