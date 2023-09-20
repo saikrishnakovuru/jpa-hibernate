@@ -1,5 +1,6 @@
 package com.jpa.entity;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -20,6 +21,6 @@ public class Student {
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long id;
   private String name;
-  @OneToOne
+  @OneToOne(cascade = CascadeType.ALL)
   private Passport passport;
 }

@@ -11,6 +11,4 @@ import java.util.Arrays;
 public class StudentRepositoryTest {
   @Autowired
   private StudentRepository studentRepository;
-
-
 }

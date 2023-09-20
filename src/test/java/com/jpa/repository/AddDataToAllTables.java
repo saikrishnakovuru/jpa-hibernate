@@ -44,11 +44,11 @@ public class AddDataToAllTables {
 
   @Test
   public void oneToOneMappingBetweenPassportAndStudent(){
-    Passport p1 = Passport.builder().number("ASD135").build();
-    Passport p2 = Passport.builder().number("HJU869").build();
-    Passport p3 = Passport.builder().number("IYT037").build();
-    Passport p4 = Passport.builder().number("TYU238").build();
-    Passport p5 = Passport.builder().number("PEU539").build();
+    Passport p1 = Passport.builder().passportNumber("ASD135").build();
+    Passport p2 = Passport.builder().passportNumber("HJU869").build();
+    Passport p3 = Passport.builder().passportNumber("IYT037").build();
+    Passport p4 = Passport.builder().passportNumber("TYU238").build();
+    Passport p5 = Passport.builder().passportNumber("PEU539").build();
 
     Student s1 = Student.builder().name("Sai").passport(p1).build();
     Student s2 = Student.builder().name("Manda").passport(p2).build();
