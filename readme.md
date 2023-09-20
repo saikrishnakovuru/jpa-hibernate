@@ -111,5 +111,5 @@ public class Course {
 
 > Look at the above provided entity classes and Test to save the data, below screenshots show how  the data looks like in the tables.
 ![Alt text](image.png) --> Course table
-![Alt text](image-1.png) --> Review table
+![Alt text](image-2.png) --> Review table
 
