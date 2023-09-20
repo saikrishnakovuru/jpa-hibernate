@@ -59,5 +59,3 @@ public class Passport {
 ```
 
 > *mappedBy* should always be in non owning side of the relationship. As we discussed earlier Address is being saved as part of Student. So, the student is on the owning side of the relationship that right away indicates **mappedBy** should be in the passport entity and on the student property.
-
-
