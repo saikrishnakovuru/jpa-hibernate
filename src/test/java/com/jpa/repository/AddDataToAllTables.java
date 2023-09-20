@@ -1,14 +1,15 @@
 package com.jpa.repository;
 
-import com.jpa.entity.Course;
-import com.jpa.entity.Passport;
-import com.jpa.entity.Review;
-import com.jpa.entity.Student;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.Arrays;
+import com.jpa.entity.Course;
+import com.jpa.entity.Passport;
+import com.jpa.entity.Review;
+import com.jpa.entity.Student;
 
 @SpringBootTest
 public class AddDataToAllTables {
@@ -30,20 +31,18 @@ public class AddDataToAllTables {
     Course c4 = Course.builder().name("Docker").build();
     Course c5 = Course.builder().name("K8s").build();
 
-
     Review r1 = Review.builder().rating("5").description("Great course").build();
     Review r2 = Review.builder().rating("4").description("Good content").build();
     Review r3 = Review.builder().rating("4").description("Interractive course").build();
     Review r4 = Review.builder().rating("4").description("Must learn").build();
     Review r5 = Review.builder().rating("5").description("Peculear content").build();
 
-
     courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
     reviewRepository.saveAll(Arrays.asList(r1, r2, r3, r4, r5));
   }
 
   @Test
-  public void oneToOneMappingBetweenPassportAndStudent(){
+  public void oneToOneMappingBetweenPassportAndStudent() {
     Passport p1 = Passport.builder().passportNumber("ASD135").build();
     Passport p2 = Passport.builder().passportNumber("HJU869").build();
     Passport p3 = Passport.builder().passportNumber("IYT037").build();
