@@ -5,7 +5,7 @@
 
 ## One-to-One mapping
 
-# One-to-one bi-directional
+### One-to-one bi-directional
 
 > Let's consider Student and Passport for now. Each student must have only one passport and since passport number is
 > unique
