@@ -127,5 +127,5 @@ public class Course {
 In the above image data is sitting next to each other which is not a good database design.
 so, when we make the owing side as Review it looks like review table in the above DB screen shots.
 
-> **IMP** --> So we go ahead and make Review as owning table and as we already know if mwe make a table owning **mappedBy** must be on the non owning side that is Course.
+> **IMP** --> So we go ahead and make Review as owning table and as we already know if we make a table owning, **mappedBy** must be on the non owning side that is Course.
 
