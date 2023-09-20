@@ -122,15 +122,10 @@ public class Course {
 
 > If we try to make course as owning side that should contain the **review_id** the problem in making course as owning side is if we have **review_id** in hte course making it owning side, Java course may have multiple reviews and it may look like
 
-+----+---------+-----------+
-| id |  name   | review_id |
-+----+---------+-----------+
-|  1 |  Java    |   1,3,5   | // data is sitting next to each other
-|  2 |  Spring  |      44   |      this is not a good database design.
-|  3 |  AWS     |      55   |
-+----+---------+-----------+    
+![Alt text](image-3.png)
 
-so, when we make the owing side as Review it looks like review table in the above screen shot.
+In the above image data is sitting next to each other which is not a good database design.
+so, when we make the owing side as Review it looks like review table in the above DB screen shots.
 
 > **IMP** --> So we go ahead and make Review as owning table and as we already know if mwe make a table owning **mappedBy** must be on the non owning side that is Course.
 
