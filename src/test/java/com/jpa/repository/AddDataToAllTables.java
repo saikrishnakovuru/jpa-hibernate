@@ -57,4 +57,21 @@ public class AddDataToAllTables {
 
     studentRepository.saveAll(Arrays.asList(s1, s2, s3, s4, s5));
   }
+
+  @Test
+  public void Many2ManyBtwnStudentAndCourse() {
+    Course c1 = Course.builder().name("Spring Boot").build();
+    Course c2 = Course.builder().name("Microservices").build();
+    Course c3 = Course.builder().name("RestAPI").build();
+    Course c4 = Course.builder().name("Docker").build();
+    Course c5 = Course.builder().name("K8s").build();
+
+    courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
+    studentRepository.saveAll(Arrays.asList(
+        Student.builder().name("Sai").courses(Arrays.asList(c1, c2)).build(),
+        Student.builder().name("Manda").courses(Arrays.asList(c2, c3)).build(),
+        Student.builder().name("Sastri").courses(Arrays.asList(c1)).build(),
+        Student.builder().name("Pb").courses(Arrays.asList(c3)).build(),
+        Student.builder().name("Katravalli").courses(Arrays.asList(c1, c2)).build()));
+  }
 }

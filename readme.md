@@ -129,3 +129,95 @@ so, when we make the owing side as Review it looks like review table in the abov
 
 > **IMP** --> So we go ahead and make Review as owning table and as we already know if we make a table owning, **mappedBy** must be on the non owning side that is Course.
 
+
+## Many-to-Many
+
+Consider Course and Student every student must have got enrolled to multiple courses and every course must be having multiple students. So, in this case we go for ManyToMany relationship
+
+> Now lets look into the table design of ManyToMany, since we have may students to each course and multiple courses to every students if we try to fit all the details the table would look like the above image having details sitting next to each other, which is possibly not the way we desgin.
+
+> Considering the above conditions the concept of joint tables comes into picture. we would create a joint table something like STUDENT_COURSE having student_id and course_id as columns.
+
+``` java
+public class Student {
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private Long id;
+  private String name;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  private Passport passport;
+
+  @ManyToMany
+  private List<Course> courses = new ArrayList<>();
+}
+```
+
+``` java
+public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    private String name;
+
+    @OneToMany(mappedBy = "course", cascade= CascadeType.ALL)
+    private List<Review> reviews = new ArrayList<>();
+
+    @ManyToMany
+    private List<Student> students = new ArrayList<>();
+}
+```
+
+look into the entities both Course and Student has many to many relationships.
+> An important thing comes up that needs attention is later adding ManyToMany raltionships in both the classes **2 joint tables** gets created like shown below
+
+![Alt text](image-4.png)
+
+> Both the joint tables contains the contains the columns course_id and student_id. So, one of the table is redundant.
+
+> Simple solution to this is making an entity a owning side, since they are ManyToMany it won't matter which table should stand on owning side.
+
+``` java
+// Course class
+@ManyToMany(mappedBy = "courses") // the value courses must match with (I)
+    private List<Student> students = new ArrayList<>();
+
+// Student class
+ @ManyToMany          // (I) 
+  private List<Course> courses = new ArrayList<>();
+```
+As we already know mappedBy should be in the non-owning side. Student is the owning side.
+
+> If we want to change the names of the table and columns below annotations are needed
+``` java
+// Student class
+@JoinTable(name = "STUDENT_COURSE",
+joinColumns = @JoinColumn(name = "STUDENT_ID")
+inverseJoinColumns = @JoinColumn(name = "COURSE_ID")
+ @ManyToMany          
+  private List<Course> courses = new ArrayList<>();
+)
+```
+> inverseJoinColumns is used to set the name of the inversely related to the student that is course, so to change the name of the course we use inverseJoinColumn. 
+
+```java
+ @Test
+  public void Many2ManyBtwnStudentAndCourse() {
+    Course c1 = Course.builder().name("Spring Boot").build();
+    Course c2 = Course.builder().name("Microservices").build();
+    Course c3 = Course.builder().name("RestAPI").build();
+    Course c4 = Course.builder().name("Docker").build();
+    Course c5 = Course.builder().name("K8s").build();
+
+    courseRepository.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
+    studentRepository.saveAll(Arrays.asList(
+        Student.builder().name("Sai").courses(Arrays.asList(c1, c2)).build(),
+        Student.builder().name("Manda").courses(Arrays.asList(c2, c3)).build(),
+        Student.builder().name("Sastri").courses(Arrays.asList(c1)).build(),
+        Student.builder().name("Pb").courses(Arrays.asList(c3)).build(),
+        Student.builder().name("Katravalli").courses(Arrays.asList(c1, c2)).build()));
+  }
+```
+> Here is the Tets to save the data  and below screenshot shows how the data in the student_course looks like
+
+![Alt text](image-5.png)
